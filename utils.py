@@ -1,5 +1,36 @@
 import pandas as pd
+import os
 from config import *
+
+
+def get_model_path(path_dir_compile):
+    model_path_list = []
+    if os.path.isdir(path_dir_compile):
+        for root, dirs, files in os.walk(path_dir_compile, topdown=True):
+            for file in files:
+                file_absolute_path = os.path.join(root, file)
+                if file_absolute_path.endswith('.model'):
+                    model_path_list.append(file_absolute_path)
+    return model_path_list
+
+
+def apfd(error_idx_list, pri_idx_list):
+    error_idx_list = list(error_idx_list)
+    pri_idx_list = list(pri_idx_list)
+    n = len(pri_idx_list)
+    m = len(error_idx_list)
+    TF_list = [pri_idx_list.index(i) for i in error_idx_list]
+    apfd = 1 - sum(TF_list)*1.0 / (n*m) + 1 / (2*n)
+    return apfd
+
+
+def get_idx_miss_class(target_pre, test_y):
+    idx_miss_list = []
+    for i in range(len(target_pre)):
+        if target_pre[i] != test_y[i]:
+            idx_miss_list.append(i)
+    idx_miss_list.append(i)
+    return idx_miss_list
 
 
 def read_adult(path_adult):
