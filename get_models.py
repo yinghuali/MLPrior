@@ -10,7 +10,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import ParameterGrid
-from mutation_config import *
 
 
 path_data = 'data/adult.csv'
@@ -30,12 +29,13 @@ def get_adult_x_y():
     return x_train, x_test, y_train, y_test, x_normalization_train, x_normalization_test, y_train_, y_test_
 
 
-x_train, x_test, y_train, y_test, x_normalization_train, x_normalization_test, y_train_, y_test_ = get_adult_x_y()
-model = LogisticRegression(tol=1500)
-model.fit(x_normalization_train, y_train)
-joblib.dump(model, 'models/target_models/lr.model')
-
-y_pre = model.predict(x_normalization_test)
-acc = accuracy_score(y_pre, y_test)
-print(acc)
+# adult LR
+# x_train, x_test, y_train, y_test, x_normalization_train, x_normalization_test, y_train_, y_test_ = get_adult_x_y()
+# model = LogisticRegression(tol=1500)
+# model.fit(x_normalization_train, y_train)
+# joblib.dump(model, 'models/target_models/lr.model')
+#
+# y_pre = model.predict(x_normalization_test)
+# acc = accuracy_score(y_pre, y_test)
+# print(acc)
 
