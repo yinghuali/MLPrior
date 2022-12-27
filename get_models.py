@@ -39,3 +39,4 @@ def get_adult_x_y():
 # acc = accuracy_score(y_pre, y_test)
 # print(acc)
 
+
