@@ -14,7 +14,7 @@ path_data = 'data/adult.csv'
 model_name = 'lr'
 n_mutants = 20                # number of mutant models
 mutation_level = 10           # range of mutation models
-path_target_model = 'models/target_models/lr.model'
+path_target_model = 'models/target_models/adult_lr.model'
 mutation_cols_level = 5       # range of mutation cols
 n_mutants_data = 20           # number of mutation data
 
@@ -139,6 +139,7 @@ def get_compare_method_apfd(target_model, x_test):
 def main():
     lr_res = ['lr'] + get_model_apfd(LogisticRegression)
     rf_res = ['rf'] + get_model_apfd(RandomForestClassifier)
+
     xgb_res = ['xgb'] + get_model_apfd(XGBClassifier)
     lgb_res = ['lgb'] + get_model_apfd(LGBMClassifier)
     df_model = pd.DataFrame([lr_res, rf_res, xgb_res, lgb_res], columns=['Approach', 'mutation_feature_apfd', 'mutation_model_apfd', 'original_feature_apfd', 'fusion_2_feature_apfd', 'fusion_3_feature_apfd'])

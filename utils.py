@@ -6,17 +6,6 @@ from sklearn.model_selection import train_test_split
 from config import *
 
 
-def get_model_path(path_dir_compile):
-    model_path_list = []
-    if os.path.isdir(path_dir_compile):
-        for root, dirs, files in os.walk(path_dir_compile, topdown=True):
-            for file in files:
-                file_absolute_path = os.path.join(root, file)
-                if file_absolute_path.endswith('.model'):
-                    model_path_list.append(file_absolute_path)
-    return model_path_list
-
-
 def apfd(error_idx_list, pri_idx_list):
     error_idx_list = list(error_idx_list)
     pri_idx_list = list(pri_idx_list)
@@ -121,3 +110,14 @@ def get_mutation_data(x, mutation_cols_level, n_mutants_data):
         res_list.append(res)
     res_np = np.array(res_list)
     return res_np
+
+
+def get_model_path(path_dir_compile):
+    model_path_list = []
+    if os.path.isdir(path_dir_compile):
+        for root, dirs, files in os.walk(path_dir_compile, topdown=True):
+            for file in files:
+                file_absolute_path = os.path.join(root, file)
+                if file_absolute_path.endswith('.model'):
+                    model_path_list.append(file_absolute_path)
+    return model_path_list
