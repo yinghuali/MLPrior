@@ -1,14 +1,9 @@
 # Datasets
 
-1. Adult Data Set （https://archive.ics.uci.edu/ml/datasets/adult）
+1. Adult (https://archive.ics.uci.edu/ml/datasets/adult）
     'label_maps': [{1.0: '>50K', 0.0: '<=50K'}],
     'protected_attribute_maps': [{1.0: 'White', 0.0: 'Non-white'},
                                  {1.0: 'Male', 0.0: 'Female'}]
-}
-
-
-LR:
-0.8388043404081076
 
 
 
