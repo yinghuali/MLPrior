@@ -13,11 +13,12 @@ from sklearn.tree import DecisionTreeClassifier
 path_data = 'data/adult.csv'
 model_name = 'lr'
 n_mutants = 20                # number of mutant models
-mutation_level = [2, 10]      # range of mutation models
+mutation_level = 10           # range of mutation models
 path_target_model = 'models/target_models/lr.model'
-mutation_cols_level = [1, 5]  # range of mutation cols
+mutation_cols_level = 5       # range of mutation cols
 n_mutants_data = 20           # number of mutation data
 
+mutation_cols_level = list(range(1, mutation_cols_level))
 data_name = path_data.split('/')[-1].split('.')[0]
 sava_path_subject_model_name = 'result/'+model_name+'_'+data_name+'_model.csv'
 sava_path_subject_compare_name = 'result/'+model_name+'_'+data_name+'_compare.csv'
@@ -32,13 +33,13 @@ def get_data(data_name):
         print('please input data name')
 
 
-def get_mutation_model_x(n_mutants, mutation_level, path_target_model):
+def get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model):
     model_pre_test_np = []
     model_pre_train_np = []
     for _ in range(n_mutants):
         model = joblib.load(path_target_model)
         for i in range(len(model.coef_[0])):
-            ratio = random.randint(mutation_level[0], mutation_level[1])
+            ratio = random.randint(2, mutation_level)
             model.coef_[0][i] = model.coef_[0][i]*ratio
         y_test_pre = model.predict(x_normalization_test)
         y_train_pre = model.predict(x_normalization_train)
@@ -58,7 +59,7 @@ target_model = joblib.load(path_target_model)
 target_test_pre = target_model.predict(x_normalization_test)
 target_train_pre = target_model.predict(x_normalization_train)
 
-model_pre_train_np, model_pre_test_np = get_mutation_model_x(n_mutants, mutation_level, path_target_model)
+model_pre_train_np, model_pre_test_np = get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model)
 
 # Feature2: mutation model feature
 mutation_model_feature_test_vec = get_mutation_feature(model_pre_test_np, target_test_pre)
@@ -76,8 +77,8 @@ mutation_x_train_feature, mutation_x_test_feature, mutation_y_train, mutation_y_
 fusion_2_feature_train = np.hstack((mutation_model_feature_train_vec, mutation_x_train_feature))
 fusion_2_feature_test = np.hstack((mutation_model_feature_test_vec, mutation_x_test_feature))
 
-fusion_3_feature_train = np.hstack((x_train, mutation_model_feature_train_vec, mutation_x_train_feature))
-fusion_3_feature_test = np.hstack((x_test, mutation_model_feature_test_vec, mutation_x_test_feature))
+fusion_3_feature_train = np.hstack((x_normalization_train, mutation_model_feature_train_vec, mutation_x_train_feature))
+fusion_3_feature_test = np.hstack((x_normalization_test, mutation_model_feature_test_vec, mutation_x_test_feature))
 
 miss_train_label, miss_test_label, idx_miss_test_list = get_miss_lable(target_train_pre, target_test_pre, y_train, y_test)
 
@@ -94,8 +95,8 @@ def get_model_apfd(Model):
     mutation_model_rank_idx = feature_pre.argsort()[::-1].copy()
 
     model = Model()
-    model.fit(x_train, miss_train_label)
-    feature_pre = model.predict_proba(x_test)[:, 1]
+    model.fit(x_normalization_train, miss_train_label)
+    feature_pre = model.predict_proba(x_normalization_test)[:, 1]
     feature_rank_idx = feature_pre.argsort()[::-1].copy()
 
     model = Model()
@@ -106,8 +107,8 @@ def get_model_apfd(Model):
     model = Model()
     model.fit(fusion_3_feature_train, miss_train_label)
     feature_pre = model.predict_proba(fusion_3_feature_test)[:, 1]
-    fusion_3_feature_rank_idx = feature_pre.argsort()[::-1].copy()
 
+    fusion_3_feature_rank_idx = feature_pre.argsort()[::-1].copy()
     mutation_feature_apfd = apfd(idx_miss_test_list, mutation_feature_rank_idx)
     mutation_model_apfd = apfd(idx_miss_test_list, mutation_model_rank_idx)
     original_feature_apfd = apfd(idx_miss_test_list, feature_rank_idx)
