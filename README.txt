@@ -1,13 +1,19 @@
 # Datasets
 
-1. Adult (https://archive.ics.uci.edu/ml/datasets/adult）
+1. Adult  48842
+(https://archive.ics.uci.edu/ml/datasets/adult）
     'label_maps': [{1.0: '>50K', 0.0: '<=50K'}],
     'protected_attribute_maps': [{1.0: 'White', 0.0: 'Non-white'},
                                  {1.0: 'Male', 0.0: 'Female'}]
 
 
-2. diabetes_data.csv
+2. Bank 49732
+(https://www.kaggle.com/datasets/prakharrathi25/banking-dataset-marketing-targets?select=train.csv)
+
+
+ing. diabetes_data.csv
 https://www.kaggle.com/datasets/prosperchuks/health-dataset?select=diabetes_data.csv
+
 
 
 
