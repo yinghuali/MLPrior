@@ -6,8 +6,8 @@
                                  {1.0: 'Male', 0.0: 'Female'}]
 
 
-
-
+2. diabetes_data.csv
+https://www.kaggle.com/datasets/prosperchuks/health-dataset?select=diabetes_data.csv
 
 
 
