@@ -2,8 +2,6 @@ import pandas as pd
 import os
 import random
 import numpy as np
-from sklearn.model_selection import train_test_split
-from config import *
 
 
 def apfd(error_idx_list, pri_idx_list):
@@ -25,47 +23,19 @@ def get_idx_miss_class(target_pre, test_y):
     return idx_miss_list
 
 
-def read_adult(path_adult):
-    df = pd.read_csv(path_adult)
-    df['workclass'] = [dic_adult_workclass[i] for i in df['workclass']]
-    df['education'] = [dic_adult_education[i] for i in df['education']]
-    df['marital-status'] = [dic_adult_marital_status[i] for i in df['marital-status']]
-    df['occupation'] = [dic_adult_occupation[i] for i in df['occupation']]
-    df['relationship'] = [dic_adult_relationship[i] for i in df['relationship']]
-    df['race'] = [dic_adult_race[i] for i in df['race']]
-    df['gender'] = [dic_adult_gender[i] for i in df['gender']]
-    df['native-country'] = [dic_adult_native_country[i] for i in df['native-country']]
-    df['income'] = [dic_adult_income[i] for i in df['income']]
-    return df
-
-
-def get_df_normalization(pdf, protect_cols_list):
-    df = pdf.copy()
-    cols = list(df.columns)
-    select_cols = [i for i in cols if i not in protect_cols_list]
-    for i in select_cols:
-        df[i] = (df[i]-min(df[i])) / (max(df[i])-min(df[i]))
-    return df
-
-
-def get_adult_x_y(path_data):
-    df = read_adult(path_data)
-    df_normalization = get_df_normalization(df, ['income'])
-    x = df.to_numpy()[:, 0:-1]
-    x_normalization = df_normalization.to_numpy()[:, 0:-1]
-    y = df.to_numpy()[:, -1]
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=17)
-    x_normalization_train, x_normalization_test, y_train_, y_test_ = train_test_split(x_normalization, y, test_size=0.3, random_state=17)
-    return x_train, x_test, y_train, y_test, x_normalization_train, x_normalization_test, y_train_, y_test_
-
-
-def get_adult_x_y_all(path_data):
-    df = read_adult(path_data)
-    df_normalization = get_df_normalization(df, ['income'])
-    x = df.to_numpy()[:, 0:-1]
-    x_normalization = df_normalization.to_numpy()[:, 0:-1]
-    y = df.to_numpy()[:, -1]
-    return x, x_normalization, y
+def read_data(path, lable_name):
+    df = pd.read_csv(path)
+    for col in df.columns:
+        if df[col].dtypes == 'object' or col==lable_name:
+            category_list = sorted(list(set(df[col])))
+            dic = dict(zip(category_list, range(len(category_list))))
+            df[col] = [dic[i] for i in df[col]]
+    y = df[lable_name].to_numpy()
+    del df[lable_name]
+    for i in df.columns:
+        df[i] = (df[i] - min(df[i])) / (max(df[i]) - min(df[i]))
+    x = df.to_numpy()
+    return x, y
 
 
 def get_mutation_feature(model_pre_np, target_pre):

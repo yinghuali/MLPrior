@@ -1,0 +1,1 @@
+# python mlprior_tree.py --path_data 'data/adult.csv' --model_name 'lgb' --path_target_model 'models/target_models/adult_lgb.model' --path_mutation_models 'models/mutation_models/adult/lgb' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'

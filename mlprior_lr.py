@@ -1,6 +1,7 @@
 import joblib
 import pandas as pd
 import numpy as np
+import argparse
 from utils import *
 from get_rank_idx import *
 from sklearn.metrics import accuracy_score
@@ -9,31 +10,50 @@ from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
 
-path_data = 'data/adult.csv'
-model_name = 'lr'
-n_mutants = 20                # number of mutant models
-mutation_level = 10           # range of mutation models
-path_target_model = 'models/target_models/adult_lr.model'
-mutation_cols_level = 5       # range of mutation cols
-n_mutants_data = 20           # number of mutation data
+ap = argparse.ArgumentParser()
+ap.add_argument("--path_data", type=str)
+ap.add_argument("--model_name", type=str)
+ap.add_argument("--n_mutants", type=int)
+ap.add_argument("--mutation_level", type=int)
+ap.add_argument("--path_target_model", type=str)
+ap.add_argument("--mutation_cols_level", type=int)
+ap.add_argument("--n_mutants_data", type=int)
+ap.add_argument("--label_name", type=str)
+
+args = ap.parse_args()
+
+path_data = args.path_data
+model_name = args.model_name
+n_mutants = args.n_mutants
+mutation_level = args.mutation_level
+path_target_model = args.path_target_model
+mutation_cols_level = args.mutation_cols_level
+n_mutants_data = args.n_mutants_data
+label_name = args.label_name
+
+# path_data = 'data/adult.csv'
+# model_name = 'lr'
+# n_mutants = 20                # number of mutant models
+# mutation_level = 10           # range of mutation models
+# path_target_model = 'models/target_models/adult_lr.model'
+# mutation_cols_level = 5       # range of mutation cols
+# n_mutants_data = 20           # number of mutation data
+# label_name = 'income'
+
+# python mlprior_tree.py --path_data 'data/adult.csv' --model_name 'lr' --n_mutants 20  --mutation_level 10 --path_target_model 'models/target_models/adult_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'
 
 mutation_cols_level = list(range(1, mutation_cols_level))
 data_name = path_data.split('/')[-1].split('.')[0]
 sava_path_subject_model_name = 'result/'+model_name+'_'+data_name+'_model.csv'
 sava_path_subject_compare_name = 'result/'+model_name+'_'+data_name+'_compare.csv'
 
-
-def get_data(data_name):
-    if data_name == 'adult':
-        x_train, x_test, y_train, y_test, x_normalization_train, x_normalization_test, y_train_, y_test_ = get_adult_x_y(path_data)
-        return x_train, x_test, y_train, y_test, x_normalization_train, x_normalization_test, y_train_, y_test
-
-    else:
-        print('please input data name')
+x, y = read_data(path_data, label_name)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 
 
-def get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model):
+def get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train):
     model_pre_test_np = []
     model_pre_train_np = []
     for _ in range(n_mutants):
@@ -41,8 +61,8 @@ def get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model):
         for i in range(len(model.coef_[0])):
             ratio = random.randint(2, mutation_level)
             model.coef_[0][i] = model.coef_[0][i]*ratio
-        y_test_pre = model.predict(x_normalization_test)
-        y_train_pre = model.predict(x_normalization_train)
+        y_test_pre = model.predict(x_test)
+        y_train_pre = model.predict(x_train)
 
         model_pre_test_np.append(y_test_pre)
         model_pre_train_np.append(y_train_pre)
@@ -54,12 +74,11 @@ def get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model):
 
 
 # Feature1: original feature
-x_train, x_test, y_train, y_test, x_normalization_train, x_normalization_test, y_train_, y_test_ = get_data(data_name)
 target_model = joblib.load(path_target_model)
-target_test_pre = target_model.predict(x_normalization_test)
-target_train_pre = target_model.predict(x_normalization_train)
+target_test_pre = target_model.predict(x_test)
+target_train_pre = target_model.predict(x_train)
 
-model_pre_train_np, model_pre_test_np = get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model)
+model_pre_train_np, model_pre_test_np = get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train)
 
 # Feature2: mutation model feature
 mutation_model_feature_test_vec = get_mutation_feature(model_pre_test_np, target_test_pre)
@@ -67,19 +86,17 @@ mutation_model_feature_train_vec = get_mutation_feature(model_pre_train_np, targ
 
 
 # Feature3: mutation of original feature
-x, x_normalization, y = get_adult_x_y_all(path_data)
-target_pre = target_model.predict(x_normalization)
-mutation_x_np = get_mutation_data(x_normalization, mutation_cols_level, n_mutants_data)
+target_pre = target_model.predict(x)
+mutation_x_np = get_mutation_data(x, mutation_cols_level, n_mutants_data)
 mutation_x_pre_np = np.array([target_model.predict(i) for i in mutation_x_np])
 mutation_x_feature = get_mutation_feature(mutation_x_pre_np, target_pre)
-mutation_x_train_feature, mutation_x_test_feature, mutation_y_train, mutation_y_test = train_test_split(mutation_x_feature, y, test_size=0.3, random_state=17)
+mutation_x_train_feature, mutation_x_test_feature, mutation_y_train, mutation_y_test = train_test_split(mutation_x_feature, y, test_size=0.3, random_state=0)
 
 fusion_2_feature_train = np.hstack((mutation_model_feature_train_vec, mutation_x_train_feature))
 fusion_2_feature_test = np.hstack((mutation_model_feature_test_vec, mutation_x_test_feature))
 
-fusion_3_feature_train = np.hstack((x_normalization_train, mutation_model_feature_train_vec, mutation_x_train_feature))
-fusion_3_feature_test = np.hstack((x_normalization_test, mutation_model_feature_test_vec, mutation_x_test_feature))
-
+fusion_3_feature_train = np.hstack((x_train, mutation_model_feature_train_vec, mutation_x_train_feature))
+fusion_3_feature_test = np.hstack((x_test, mutation_model_feature_test_vec, mutation_x_test_feature))
 miss_train_label, miss_test_label, idx_miss_test_list = get_miss_lable(target_train_pre, target_test_pre, y_train, y_test)
 
 
@@ -133,14 +150,13 @@ def get_compare_method_apfd(target_model, x_test):
 def main():
     lr_res = ['lr'] + get_model_apfd(LogisticRegression)
     rf_res = ['rf'] + get_model_apfd(RandomForestClassifier)
-
     xgb_res = ['xgb'] + get_model_apfd(XGBClassifier)
     lgb_res = ['lgb'] + get_model_apfd(LGBMClassifier)
     df_model = pd.DataFrame([lr_res, rf_res, xgb_res, lgb_res], columns=['Approach', 'mutation_feature_apfd', 'mutation_model_apfd', 'fusion_2_feature_apfd', 'fusion_3_feature_apfd'])
 
     df_model.to_csv(sava_path_subject_model_name, index=False)
 
-    res_list = get_compare_method_apfd(target_model, x_normalization_test)
+    res_list = get_compare_method_apfd(target_model, x_test)
     Approach_list = ['random_apfd', 'deepGini_apfd', 'leastConfidence_apfd', 'margin_apfd']
     df_compare = pd.DataFrame(columns=['Approach'])
     df_compare['Approach'] = Approach_list
