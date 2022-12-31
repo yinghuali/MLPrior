@@ -27,6 +27,8 @@ label_name = args.label_name
 path_save_model = args.path_save_model
 model_name = args.model_name
 
+
+
 data_name = path_data.split('/')[-1].split('.')[0]
 
 x, y = read_data(path_data, label_name)

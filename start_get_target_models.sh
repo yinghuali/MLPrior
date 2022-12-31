@@ -1,1 +1,0 @@
-# python get_target_models.py --path_data 'data/adult.csv' --label_name 'income' --n_estimators 5

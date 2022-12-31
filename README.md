@@ -1,10 +1,11 @@
 # MLPrior
 ## Step1: Getting target models
-    python get_target_models.py --path_data 'data/wine.csv' --label_name 'quality' --n_estimators 5
+    sh start_get_target_models.sh
 ## Step2: Getting mutation models
-    python get_target_models.py --path_data 'data/wine.csv' --label_name 'quality'
+    sh start_get_mutation_models.sh
 ## Step3: Getting all the results
-
+    sh start_mlprior_lr.sh
+    sh start_mlprior_tree.sh
 
 
 
