@@ -18,8 +18,8 @@ ap.add_argument("--path_save_model", type=str)
 ap.add_argument("--model_name", type=str)
 args = ap.parse_args()
 
-# python get_mutation_models.py --path_data 'data/wine.csv' --label_name 'quality' --path_save_model 'models/mutation_models/wine/'
 # python get_mutation_models.py --path_data 'data/adult.csv' --label_name 'income' --path_save_model 'models/mutation_models/adult/'
+# python get_mutation_models.py --path_data 'data/wine.csv' --label_name 'quality' --path_save_model 'models/mutation_models/wine/'
 
 
 path_data = args.path_data

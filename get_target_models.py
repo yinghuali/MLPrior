@@ -21,38 +21,38 @@ from sklearn.metrics import accuracy_score
 # label_name = args.label_name
 # n_estimators = args.n_estimators
 
-path_data = 'data/adult.csv'
-label_name = 'income'
-n_estimators = 2
+path_data = 'data/wine.csv'
+label_name = 'quality'
+n_estimators = 10
 
 data_name = path_data.split('/')[-1].split('.')[0]
 x, y = read_data(path_data, label_name)
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 
 
-# # adult LR
-# model = LogisticRegression()
-# model.fit(x_train, y_train)
-# joblib.dump(model, 'models/target_models/{}_lr.model'.format(data_name))
-# y_pre = model.predict(x_test)
-# acc = accuracy_score(y_pre, y_test)
-# print(acc)
-#
-# # RF
-# model = RandomForestClassifier(n_estimators=n_estimators)
-# model.fit(x_train, y_train)
-# joblib.dump(model, 'models/target_models/{}_rf.model'.format(data_name))
-# y_pre = model.predict(x_test)
-# acc = accuracy_score(y_pre, y_test)
-# print(acc)
-#
-# # xgboost
-# model = XGBClassifier(n_estimators=n_estimators)
-# model.fit(x_train, y_train)
-# joblib.dump(model, 'models/target_models/{}_xgboost.model'.format(data_name))
-# y_pre = model.predict(x_test)
-# acc = accuracy_score(y_pre, y_test)
-# print(acc)
+# adult LR
+model = LogisticRegression()
+model.fit(x_train, y_train)
+joblib.dump(model, 'models/target_models/{}_lr.model'.format(data_name))
+y_pre = model.predict(x_test)
+acc = accuracy_score(y_pre, y_test)
+print(acc)
+
+# RF
+model = RandomForestClassifier(n_estimators=n_estimators)
+model.fit(x_train, y_train)
+joblib.dump(model, 'models/target_models/{}_rf.model'.format(data_name))
+y_pre = model.predict(x_test)
+acc = accuracy_score(y_pre, y_test)
+print(acc)
+
+# xgboost
+model = XGBClassifier(n_estimators=n_estimators)
+model.fit(x_train, y_train)
+joblib.dump(model, 'models/target_models/{}_xgboost.model'.format(data_name))
+y_pre = model.predict(x_test)
+acc = accuracy_score(y_pre, y_test)
+print(acc)
 
 # lightgbm
 model = LGBMClassifier(n_estimators=n_estimators)

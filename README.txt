@@ -1,13 +1,15 @@
 # Datasets
 
-1. Adult  48842
+1. Adult  48842 income
 (https://archive.ics.uci.edu/ml/datasets/adult）
     'label_maps': [{1.0: '>50K', 0.0: '<=50K'}],
     'protected_attribute_maps': [{1.0: 'White', 0.0: 'Non-white'},
                                  {1.0: 'Male', 0.0: 'Female'}]
 
+2. wine 1143 quality 效果差删掉，可能原因数据集太小
+(https://www.kaggle.com/datasets/yasserh/wine-quality-dataset)
 
-2. Bank 49732
+2. Bank 49732 y
 (https://www.kaggle.com/datasets/prakharrathi25/banking-dataset-marketing-targets?select=train.csv)
 
 

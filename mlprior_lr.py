@@ -42,7 +42,9 @@ label_name = args.label_name
 # n_mutants_data = 20           # number of mutation data
 # label_name = 'income'
 
-# python mlprior_tree.py --path_data 'data/adult.csv' --model_name 'lr' --n_mutants 20  --mutation_level 10 --path_target_model 'models/target_models/adult_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'
+# python mlprior_lr.py --path_data 'data/adult.csv' --model_name 'lr' --n_mutants 20  --mutation_level 10 --path_target_model 'models/target_models/adult_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'
+# python mlprior_lr.py --path_data 'data/wine.csv' --model_name 'lr' --n_mutants 20  --mutation_level 10 --path_target_model 'models/target_models/wine_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'quality'
+
 
 mutation_cols_level = list(range(1, mutation_cols_level))
 data_name = path_data.split('/')[-1].split('.')[0]
