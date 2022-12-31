@@ -6,15 +6,23 @@
     'protected_attribute_maps': [{1.0: 'White', 0.0: 'Non-white'},
                                  {1.0: 'Male', 0.0: 'Female'}]
 
-2. wine 1143 quality 效果差删掉，可能原因数据集太小
+wine 1143 quality 删掉
 (https://www.kaggle.com/datasets/yasserh/wine-quality-dataset)
 
-2. Bank 49732 y
+Bank 49732 y 删掉
 (https://www.kaggle.com/datasets/prakharrathi25/banking-dataset-marketing-targets?select=train.csv)
 
 
-ing. diabetes_data.csv
+diabetes_data.csv  70692  Diabetes  删掉
 https://www.kaggle.com/datasets/prosperchuks/health-dataset?select=diabetes_data.csv
+
+creditcard.csv 284807 Class 删掉
+
+heart.csv 数据集太少 删掉
+https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset
+
+2. churn.csv 10000 客户流失 churn
+https://www.kaggle.com/datasets/gauravtopre/bank-customer-churn-dataset
 
 
 

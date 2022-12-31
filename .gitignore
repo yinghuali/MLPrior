@@ -137,4 +137,7 @@ logs/*.log
 models/*.h5
 *.h5
 
-data/
+data/*
+README.txt
+
+

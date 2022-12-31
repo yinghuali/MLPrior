@@ -1,5 +1,5 @@
 
-dic_mutation_wine_rf = {
+dic_mutation_diabetes_rf = {
                    'n_estimators': [5, 10, 15, 20, 25, 30],
                    'max_depth': [2, 3],
                    'max_features': [1, 2, 3],
@@ -8,7 +8,7 @@ dic_mutation_wine_rf = {
                    }
 
 
-dic_mutation_wine_xgboost = {
+dic_mutation_diabetes_xgboost = {
                    'n_estimators': [5, 10, 15, 20, 25, 30],
                    'max_depth': [2, 3],
                    'eta': [0.1, 3],
@@ -17,7 +17,7 @@ dic_mutation_wine_xgboost = {
                    'refresh_leaf': [0, 1]
                    }
 
-dic_mutation_wine_lgb = {
+dic_mutation_diabetes_lgb = {
                    'n_estimators': [5, 10, 15, 20, 25, 30],
                    'max_depth': [2, 3],
                    'num_leaves': [10, 30, 50],
