@@ -90,11 +90,6 @@ def get_model_apfd(Model):
     mutation_model_rank_idx = feature_pre.argsort()[::-1].copy()
 
     model = Model()
-    model.fit(x_normalization_train, miss_train_label)
-    feature_pre = model.predict_proba(x_normalization_test)[:, 1]
-    feature_rank_idx = feature_pre.argsort()[::-1].copy()
-
-    model = Model()
     model.fit(fusion_2_feature_train, miss_train_label)
     feature_pre = model.predict_proba(fusion_2_feature_test)[:, 1]
     fusion_2_feature_rank_idx = feature_pre.argsort()[::-1].copy()
@@ -106,11 +101,10 @@ def get_model_apfd(Model):
 
     mutation_feature_apfd = apfd(idx_miss_test_list, mutation_feature_rank_idx)
     mutation_model_apfd = apfd(idx_miss_test_list, mutation_model_rank_idx)
-    original_feature_apfd = apfd(idx_miss_test_list, feature_rank_idx)
     fusion_2_feature_apfd = apfd(idx_miss_test_list, fusion_2_feature_rank_idx)
     fusion_3_feature_apfd = apfd(idx_miss_test_list, fusion_3_feature_rank_idx)
 
-    res_list = [mutation_feature_apfd, mutation_model_apfd, original_feature_apfd, fusion_2_feature_apfd, fusion_3_feature_apfd]
+    res_list = [mutation_feature_apfd, mutation_model_apfd, fusion_2_feature_apfd, fusion_3_feature_apfd]
     return res_list
 
 
@@ -136,7 +130,7 @@ def main():
     rf_res = ['rf'] + get_model_apfd(RandomForestClassifier)
     xgb_res = ['xgb'] + get_model_apfd(XGBClassifier)
     lgb_res = ['lgb'] + get_model_apfd(LGBMClassifier)
-    df_model = pd.DataFrame([lr_res, rf_res, xgb_res, lgb_res], columns=['Approach', 'mutation_feature_apfd', 'mutation_model_apfd', 'original_feature_apfd', 'fusion_2_feature_apfd', 'fusion_3_feature_apfd'])
+    df_model = pd.DataFrame([lr_res, rf_res, xgb_res, lgb_res], columns=['Approach', 'mutation_feature_apfd', 'mutation_model_apfd', 'fusion_2_feature_apfd', 'fusion_3_feature_apfd'])
     df_model.to_csv(sava_path_subject_model_name, index=False)
 
     res_list = get_compare_method_apfd(target_model, x_normalization_test)

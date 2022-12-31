@@ -107,3 +107,6 @@ dic_adult_native_country = {'Hong': 0,
                          'Iran': 39,
                          'Jamaica': 40,
                          'Taiwan': 41}
+
+
+
