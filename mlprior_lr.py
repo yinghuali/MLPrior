@@ -43,7 +43,7 @@ label_name = args.label_name
 # label_name = 'income'
 
 # python mlprior_lr.py --path_data 'data/adult.csv' --model_name 'lr' --n_mutants 20  --mutation_level 10 --path_target_model 'models/target_models/adult_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'
-# python mlprior_lr.py --path_data 'data/churn.csv' --model_name 'lr' --n_mutants 20  --mutation_level 5 --path_target_model 'models/target_models/churn_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'churn'
+# python mlprior_lr.py --path_data 'data/heart.csv' --model_name 'lr' --n_mutants 20  --mutation_level 3 --path_target_model 'models/target_models/heart_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'label'
 
 
 mutation_cols_level = list(range(1, mutation_cols_level))

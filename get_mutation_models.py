@@ -19,15 +19,13 @@ ap.add_argument("--model_name", type=str)
 args = ap.parse_args()
 
 # python get_mutation_models.py --path_data 'data/adult.csv' --label_name 'income' --path_save_model 'models/mutation_models/adult/'
-# python get_mutation_models.py --path_data 'data/wine.csv' --label_name 'quality' --path_save_model 'models/mutation_models/wine/'
+# python get_mutation_models.py --path_data 'data/heart.csv' --label_name 'label' --path_save_model 'models/mutation_models/heart/'
 
 
 path_data = args.path_data
 label_name = args.label_name
 path_save_model = args.path_save_model
 model_name = args.model_name
-
-
 
 data_name = path_data.split('/')[-1].split('.')[0]
 
@@ -36,10 +34,10 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_
 
 
 def get_mutation_config(data_name):
-    if data_name=='wine':
-        dic_rf = dic_mutation_wine_rf
-        dic_xgboost = dic_mutation_wine_xgboost
-        dic_lgb = dic_mutation_wine_lgb
+    if data_name=='heart':
+        dic_rf = dic_mutation_heart_rf
+        dic_xgboost = dic_mutation_heart_xgboost
+        dic_lgb = dic_mutation_heart_lgb
     elif data_name=='adult':
         dic_rf = dic_mutation_adult_rf
         dic_xgboost = dic_mutation_adult_xgboost

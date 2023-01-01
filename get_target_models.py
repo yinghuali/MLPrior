@@ -21,13 +21,14 @@ from sklearn.metrics import accuracy_score
 # label_name = args.label_name
 # n_estimators = args.n_estimators
 
-path_data = 'data/churn.csv'
-label_name = 'churn'
-n_estimators = 5
+path_data = 'data/heart.csv'
+label_name = 'label'
+n_estimators = 3
 
 data_name = path_data.split('/')[-1].split('.')[0]
 x, y = read_data(path_data, label_name)
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
+
 
 # adult LR
 model = LogisticRegression()
