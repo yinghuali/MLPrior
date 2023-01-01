@@ -47,3 +47,42 @@ dic_mutation_adult_lgb = {
                    'lambda_l1': [1, 10]
                    }
 
+
+dic_mutation_bank_rf = {
+                   'n_estimators': [10, 20, 30, 40],
+                   'max_depth': [5, 10, 20],
+                   }
+
+
+dic_mutation_bank_xgboost = {
+                   'n_estimators': [1, 2, 3, 5, 10],
+                   'max_depth': [2, 3],
+                   'eta': [0.1, 3],
+                   }
+
+dic_mutation_bank_lgb = {
+                   'n_estimators': [1, 2, 3, 5, 10],
+                   'max_depth': [2, 3],
+                   'num_leaves': [10, 30, 50],
+                   'min_data_in_leaf': [40],
+                   }
+
+
+dic_mutation_stroke_rf = {
+                   'n_estimators': [10, 20, 30, 40],
+                   'max_depth': [5, 10, 20],
+                   }
+
+
+dic_mutation_stroke_xgboost = {
+                   'n_estimators': [1, 2, 3, 5, 10],
+                   'max_depth': [2, 3],
+                   'eta': [0.1, 3],
+                   }
+
+dic_mutation_stroke_lgb = {
+                   'n_estimators': [1, 2, 3, 5, 10],
+                   'max_depth': [2, 3],
+                   'num_leaves': [10, 30, 50],
+                   'min_data_in_leaf': [40],
+                   }

@@ -137,7 +137,9 @@ logs/*.log
 models/*.h5
 *.h5
 
-data/*
 README.txt
+
+data/heart.csv
+
 
 

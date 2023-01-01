@@ -20,6 +20,8 @@ args = ap.parse_args()
 
 # python get_mutation_models.py --path_data 'data/adult.csv' --label_name 'income' --path_save_model 'models/mutation_models/adult/'
 # python get_mutation_models.py --path_data 'data/heart.csv' --label_name 'label' --path_save_model 'models/mutation_models/heart/'
+# python get_mutation_models.py --path_data 'data/bank.csv' --label_name 'y' --path_save_model 'models/mutation_models/bank/'
+# python get_mutation_models.py --path_data 'data/stroke.csv' --label_name 'stroke' --path_save_model 'models/mutation_models/stroke/'
 
 
 path_data = args.path_data
@@ -42,6 +44,14 @@ def get_mutation_config(data_name):
         dic_rf = dic_mutation_adult_rf
         dic_xgboost = dic_mutation_adult_xgboost
         dic_lgb = dic_mutation_adult_lgb
+    elif data_name=='bank':
+        dic_rf = dic_mutation_bank_rf
+        dic_xgboost = dic_mutation_bank_xgboost
+        dic_lgb = dic_mutation_bank_lgb
+    elif data_name=='stroke':
+        dic_rf = dic_mutation_stroke_rf
+        dic_xgboost = dic_mutation_stroke_xgboost
+        dic_lgb = dic_mutation_stroke_lgb
     else:
         print('please input data')
         dic_rf, dic_xgboost, dic_lgb = None, None, None
