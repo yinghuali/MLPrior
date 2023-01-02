@@ -149,7 +149,7 @@ def get_compare_method_apfd(target_model, x_test):
 
     return res_list
 
-#
+
 def main():
     # lr_res = ['lr'] + get_model_apfd(LogisticRegression)
     # rf_res = ['rf'] + get_model_apfd(RandomForestClassifier)
