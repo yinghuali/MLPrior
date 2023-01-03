@@ -12,7 +12,22 @@ https://tianchi.aliyun.com/competition/entrance/531883/information/
 
 3. Bank 49732 y
 (https://www.kaggle.com/datasets/prakharrathi25/banking-dataset-marketing-targets?select=train.csv)
+国际年龄划分是指将人的年龄分成不同的阶段的一种方式。这种方式通常用于统计、教育、医疗等领域。
 
+def udf_age(i):
+    if 18<=i<=29:
+        return 65
+    if i >= 30:
+        return 25
+
+下面是一个常见的国际年龄划分方式:
+
+儿童：0-11 岁
+青少年：12-17 岁
+青年：18-29 岁
+中年：30-59 岁
+老年：60 岁以上
+注意：这只是一种常见的国际年龄划分方式
 
 4. stroke.csv  40907  stroke
 https://www.kaggle.com/datasets/prosperchuks/health-dataset?select=stroke_data.csv
