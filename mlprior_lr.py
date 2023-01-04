@@ -42,12 +42,6 @@ label_name = args.label_name
 # n_mutants_data = 20           # number of mutation data
 # label_name = 'income'
 
-# python mlprior_lr.py --path_data 'data/adult.csv' --model_name 'lr' --n_mutants 20  --mutation_level 10 --path_target_model 'models/target_models/adult_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'
-# python mlprior_lr.py --path_data 'data/heart.csv' --model_name 'lr' --n_mutants 20  --mutation_level 3 --path_target_model 'models/target_models/heart_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'label'
-# python mlprior_lr.py --path_data 'data/bank.csv' --model_name 'lr' --n_mutants 20  --mutation_level 3 --path_target_model 'models/target_models/bank_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'y'
-# python mlprior_lr.py --path_data 'data/stroke.csv' --model_name 'lr' --n_mutants 20  --mutation_level 3 --path_target_model 'models/target_models/stroke_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'stroke'
-
-
 mutation_cols_level = list(range(1, mutation_cols_level))
 data_name = path_data.split('/')[-1].split('.')[0]
 sava_path_subject_model_name = 'result/'+model_name+'_'+data_name+'_model.csv'
