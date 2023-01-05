@@ -140,6 +140,7 @@ models/*.h5
 README.txt
 
 data/heart.csv
+data/noise/*
 
 
 
