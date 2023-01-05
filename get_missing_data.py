@@ -29,20 +29,20 @@ def get_missing_data(path, n_missing_col, label_col_name, save_path_dir, file_na
 
 
 if __name__ == '__main__':
-    # get_missing_data('./data/adult.csv', 1, 'income', './data/missing/', 'adult')
-    # get_missing_data('./data/adult.csv', 2, 'income', './data/missing/', 'adult')
-    # get_missing_data('./data/adult.csv', 3, 'income', './data/missing/', 'adult')
-    # get_missing_data('./data/adult.csv', 4, 'income', './data/missing/', 'adult')
-    #
-    # get_missing_data('./data/bank.csv', 1, 'y', './data/missing/', 'bank')
-    # get_missing_data('./data/bank.csv', 2, 'y', './data/missing/', 'bank')
-    # get_missing_data('./data/bank.csv', 3, 'y', './data/missing/', 'bank')
-    # get_missing_data('./data/bank.csv', 4, 'y', './data/missing/', 'bank')
+    get_missing_data('./data/adult.csv', 1, 'income', './data/missing/', 'adult')
+    get_missing_data('./data/adult.csv', 2, 'income', './data/missing/', 'adult')
+    get_missing_data('./data/adult.csv', 3, 'income', './data/missing/', 'adult')
+    get_missing_data('./data/adult.csv', 4, 'income', './data/missing/', 'adult')
 
-    # get_missing_data('./data/stroke.csv', 1, 'stroke', './data/missing/', 'stroke')
-    # get_missing_data('./data/stroke.csv', 2, 'stroke', './data/missing/', 'stroke')
-    # get_missing_data('./data/stroke.csv', 3, 'stroke', './data/missing/', 'stroke')
-    # get_missing_data('./data/stroke.csv', 4, 'stroke', './data/missing/', 'stroke')
+    get_missing_data('./data/bank.csv', 1, 'y', './data/missing/', 'bank')
+    get_missing_data('./data/bank.csv', 2, 'y', './data/missing/', 'bank')
+    get_missing_data('./data/bank.csv', 3, 'y', './data/missing/', 'bank')
+    get_missing_data('./data/bank.csv', 4, 'y', './data/missing/', 'bank')
+
+    get_missing_data('./data/stroke.csv', 1, 'stroke', './data/missing/', 'stroke')
+    get_missing_data('./data/stroke.csv', 2, 'stroke', './data/missing/', 'stroke')
+    get_missing_data('./data/stroke.csv', 3, 'stroke', './data/missing/', 'stroke')
+    get_missing_data('./data/stroke.csv', 4, 'stroke', './data/missing/', 'stroke')
 
     get_missing_data('./data/heart.csv', 1, 'label', './data/missing/', 'heart')
     get_missing_data('./data/heart.csv', 2, 'label', './data/missing/', 'heart')
