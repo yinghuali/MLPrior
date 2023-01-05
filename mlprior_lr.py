@@ -161,6 +161,9 @@ def main():
     df_compare['apfd'] = res_list
     df_compare.to_csv(sava_path_subject_compare_name, index=False)
 
+    print(df_compare)
+    print(df_model)
+
 
 if __name__ == '__main__':
     main()

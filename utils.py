@@ -33,7 +33,8 @@ def read_data(path, lable_name):
     y = df[lable_name].to_numpy()
     del df[lable_name]
     for i in df.columns:
-        df[i] = (df[i] - min(df[i])) / (max(df[i]) - min(df[i]))
+        if df[i].all() != 0:
+            df[i] = (df[i] - min(df[i])) / (max(df[i]) - min(df[i]))
     x = df.to_numpy()
     return x, y
 
