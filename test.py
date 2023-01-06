@@ -11,7 +11,6 @@ from lightgbm import LGBMClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
-
 path_data = 'data/heart.csv'
 model_name = 'rf'
 path_target_model = 'models/target_models/heart_rf.model'
