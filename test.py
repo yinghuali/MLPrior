@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 
+
 def get_path(path_dir_compile):
     path_list = []
     if os.path.isdir(path_dir_compile):
@@ -12,12 +13,9 @@ def get_path(path_dir_compile):
     return path_list
 
 
-path_list = get_path('/Users/yinghua.li/Desktop/nw/missing')
+path_list = get_path('data/missing')
 print(len(path_list))
 
-cmd_list = ['mv '+i+' result/missing/' for i in path_list]
-for i in cmd_list:
-    os.system(i)
 
 
 
