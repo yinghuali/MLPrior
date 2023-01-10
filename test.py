@@ -13,10 +13,6 @@ def get_path(path_dir_compile):
     return path_list
 
 
-
-
-
-
 path_list = get_path('/Users/yinghua.li/Documents/Pycharm/MLPrior/result/noise')
 print(len(path_list))
 
