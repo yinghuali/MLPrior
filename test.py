@@ -13,17 +13,11 @@ def get_path(path_dir_compile):
     return path_list
 
 
-path_list = get_path('result/')
-print(len(path_list))
-path_list = [i for i in path_list if 'fairness' not in i and 'missing' not in i and 'original' not in i and 'table' not in i]
-print(len(path_list))
-path_list = [i for i in path_list if len(i.split('/'))==2]
-print(len(path_list))
-for i in path_list:
-    cmd = 'rm ' + i
-    os.system(cmd)
 
 
 
+
+path_list = get_path('/Users/yinghua.li/Documents/Pycharm/MLPrior/result/noise')
+print(len(path_list))
 
 
