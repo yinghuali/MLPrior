@@ -83,7 +83,7 @@ mutation_model_feature_test_vec = get_mutation_feature(model_pre_test_np, target
 mutation_model_feature_train_vec = get_mutation_feature(model_pre_train_np, target_train_pre)
 
 
-# Feature3: mutation of original feature
+# Feature3: mutation feature
 target_pre = target_model.predict(x)
 mutation_x_np = get_mutation_data(x, mutation_cols_level, n_mutants_data)
 mutation_x_pre_np = np.array([target_model.predict(i) for i in mutation_x_np])
@@ -160,9 +160,6 @@ def main():
     df_compare['Approach'] = Approach_list
     df_compare['apfd'] = res_list
     df_compare.to_csv(sava_path_subject_compare_name, index=False)
-
-    print(df_compare)
-    print(df_model)
 
 
 if __name__ == '__main__':
