@@ -1,12 +1,7 @@
 import numpy as np
 import random
-from scipy.special import softmax
 from utils import *
-
-
-def get_0_1_pro(pre_np):
-    pre_np_0_1 = softmax(pre_np, axis=1)
-    return pre_np_0_1
+from scipy.stats import entropy
 
 
 def Random_rank_idx(x):
@@ -33,6 +28,21 @@ def LeastConfidence_rank_idx(x):
     return leastConfidence_rank_idx
 
 
+def VanillaSoftmax_rank_idx(x):
+    value = 1 - x.max(1)
+    vanillasoftmax_rank_idx = np.argsort(value)[::-1]
+    return vanillasoftmax_rank_idx
 
 
+def PCS_rank_idx(x):
+    output_sort = np.sort(x)
+    pcs_score = 1 - (output_sort[:, -1] - output_sort[:, -2])
+    pcs_rank_idx = pcs_score.argsort()[::-1]
+    return pcs_rank_idx
 
+
+def Entropy_rank_idx(x):
+    prob_dist = np.array([i / np.sum(i) for i in x])
+    entropy_res = entropy(prob_dist, axis=1)
+    entropy_rank_idx = np.argsort(entropy_res)[::-1]
+    return entropy_rank_idx

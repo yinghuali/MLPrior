@@ -126,17 +126,21 @@ def get_model_apfd(Model):
 
 def get_compare_method_apfd(target_model, x_test):
     x_test_target_model_pre = target_model.predict_proba(x_test)
-    margin_rank_idx = Margin_rank_idx(x_test_target_model_pre)
+
     deepGini_rank_idx = DeepGini_rank_idx(x_test_target_model_pre)
-    leastConfidence_rank_idx = LeastConfidence_rank_idx(x_test_target_model_pre)
+    vanillasoftmax_rank_idx = VanillaSoftmax_rank_idx(x_test_target_model_pre)
+    pcs_rank_idx = PCS_rank_idx(x_test_target_model_pre)
+    entropy_rank_idx = Entropy_rank_idx(x_test_target_model_pre)
     random_rank_idx = Random_rank_idx(x_test_target_model_pre)
 
     random_apfd = apfd(idx_miss_test_list, random_rank_idx)
     deepGini_apfd = apfd(idx_miss_test_list, deepGini_rank_idx)
-    leastConfidence_apfd = apfd(idx_miss_test_list, leastConfidence_rank_idx)
-    margin_apfd = apfd(idx_miss_test_list, margin_rank_idx)
+    vanillasoftmax_apfd = apfd(idx_miss_test_list, vanillasoftmax_rank_idx)
+    pcs_apfd = apfd(idx_miss_test_list, pcs_rank_idx)
+    entropy_apfd = apfd(idx_miss_test_list, entropy_rank_idx)
 
-    res_list = [random_apfd, deepGini_apfd, leastConfidence_apfd, margin_apfd]
+
+    res_list = [random_apfd, deepGini_apfd, vanillasoftmax_apfd, pcs_apfd, entropy_apfd]
 
     return res_list
 
@@ -144,15 +148,12 @@ def get_compare_method_apfd(target_model, x_test):
 def main():
     lr_res = ['lr'] + get_model_apfd(LogisticRegression)
     rf_res = ['rf'] + get_model_apfd(RandomForestClassifier)
-
     xgb_res = ['xgb'] + get_model_apfd(XGBClassifier)
     lgb_res = ['lgb'] + get_model_apfd(LGBMClassifier)
     df_model = pd.DataFrame([lr_res, rf_res, xgb_res, lgb_res], columns=['Approach', 'mutation_feature_apfd', 'mutation_model_apfd', 'fusion_2_feature_apfd', 'fusion_3_feature_apfd'])
-
     df_model.to_csv(sava_path_subject_model_name, index=False)
-
     res_list = get_compare_method_apfd(target_model, x_test)
-    Approach_list = ['random_apfd', 'deepGini_apfd', 'leastConfidence_apfd', 'margin_apfd']
+    Approach_list = ['random_apfd', 'deepGini_apfd', 'vanillasoftmax_apfd', 'pcs_apfd', 'entropy_apfd']
     df_compare = pd.DataFrame(columns=['Approach'])
     df_compare['Approach'] = Approach_list
     df_compare['apfd'] = res_list

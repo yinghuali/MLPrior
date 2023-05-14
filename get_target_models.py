@@ -3,6 +3,7 @@ import argparse
 from get_rank_idx import *
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -23,7 +24,7 @@ from sklearn.metrics import accuracy_score
 
 path_data = 'data/adult.csv'
 label_name = 'income'
-n_estimators = 10
+n_estimators = 30
 
 
 def main():
@@ -38,15 +39,16 @@ def main():
     joblib.dump(model, 'models/target_models/{}_lr.model'.format(data_name))
     y_pre = model.predict(x_test)
     acc = accuracy_score(y_pre, y_test)
-    print(acc)
+    print('test', acc)
 
-    # RF
-    model = RandomForestClassifier(n_estimators=n_estimators)
+
+    # tree
+    model = DecisionTreeClassifier(min_samples_leaf=10)
     model.fit(x_train, y_train)
-    joblib.dump(model, 'models/target_models/{}_rf.model'.format(data_name))
+    joblib.dump(model, 'models/target_models/{}_dtree.model'.format(data_name))
     y_pre = model.predict(x_test)
     acc = accuracy_score(y_pre, y_test)
-    print(acc)
+    print('test', acc)
 
     # xgboost
     model = XGBClassifier(n_estimators=n_estimators)
@@ -54,7 +56,7 @@ def main():
     joblib.dump(model, 'models/target_models/{}_xgboost.model'.format(data_name))
     y_pre = model.predict(x_test)
     acc = accuracy_score(y_pre, y_test)
-    print(acc)
+    print('test', acc)
 
     # lightgbm
     model = LGBMClassifier(n_estimators=n_estimators)
@@ -62,7 +64,7 @@ def main():
     joblib.dump(model, 'models/target_models/{}_lgb.model'.format(data_name))
     y_pre = model.predict(x_test)
     acc = accuracy_score(y_pre, y_test)
-    print(acc)
+    print('test', acc)
 
 
 if __name__ == '__main__':
