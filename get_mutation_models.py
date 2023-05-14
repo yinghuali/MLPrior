@@ -71,7 +71,6 @@ def main():
         model = RandomForestClassifier(**tmp_dic)
         model.fit(x_train, y_train)
         joblib.dump(model, save_model_name)
-        pickle.dump(tmp_dic, open(path_save_model+'rf/' + str(i) + '_config.pkl', 'wb'))
 
     for i in range(len(list_dic_xgboost)):
         tmp_dic = list_dic_xgboost[i]
@@ -79,7 +78,6 @@ def main():
         model = XGBClassifier(**tmp_dic)
         model.fit(x_train, y_train)
         joblib.dump(model, save_model_name)
-        pickle.dump(tmp_dic, open(path_save_model+'xgboost/' + str(i) + '_config.pkl', 'wb'))
 
     for i in range(len(list_dic_lgb)):
         tmp_dic = list_dic_lgb[i]
@@ -87,7 +85,6 @@ def main():
         model = LGBMClassifier(**tmp_dic)
         model.fit(x_train, y_train)
         joblib.dump(model, save_model_name)
-        pickle.dump(tmp_dic, open(path_save_model+'lgb/' + str(i) + '_config.pkl', 'wb'))
 
 
 if __name__ == '__main__':
