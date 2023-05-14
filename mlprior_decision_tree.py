@@ -7,7 +7,7 @@ from get_rank_idx import *
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
-from lightgbm import LGBMClassifier
+from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 
@@ -123,8 +123,8 @@ def main():
     lr_res = ['lr'] + get_model_apfd(LogisticRegression, dt=False)
     dt_res = ['dt'] + get_model_apfd(DecisionTreeClassifier, dt=True)
     xgb_res = ['xgb'] + get_model_apfd(XGBClassifier, dt=False)
-    lgb_res = ['lgb'] + get_model_apfd(LGBMClassifier, dt=False)
-    df_model = pd.DataFrame([lr_res, dt_res, xgb_res, lgb_res], columns=['Approach', 'apfd'])
+    nb_res = ['nb'] + get_model_apfd(GaussianNB, dt=False)
+    df_model = pd.DataFrame([lr_res, dt_res, xgb_res, nb_res], columns=['Approach', 'apfd'])
     df_model.to_csv(sava_path_subject_model_name, index=False)
     res_list = get_compare_method_apfd(target_model, x_test)
     Approach_list = ['random_apfd', 'deepGini_apfd', 'vanillasoftmax_apfd', 'pcs_apfd', 'entropy_apfd']

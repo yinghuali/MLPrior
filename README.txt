@@ -33,18 +33,22 @@ def udf_age(i):
 https://www.kaggle.com/datasets/prosperchuks/health-dataset?select=stroke_data.csv
 
 
-wine 1143 quality 删掉
+wine 1143 quality
 (https://www.kaggle.com/datasets/yasserh/wine-quality-dataset)
 
 
 
-creditcard.csv 284807 Class 删掉
+creditcard.csv 284807 Class
 
-churn.csv 10000 客户流失 churn 删掉
+churn.csv 10000 客户流失 churn
 https://www.kaggle.com/datasets/gauravtopre/bank-customer-churn-dataset
 
-patient.csv 3000 SOURCE 删除
+patient.csv 3000 SOURCE
 https://www.kaggle.com/datasets/manishkc06/patient-treatment-classification?select=training_set.csv
 
+
+
+
+LR, SVM, RF, and two other very popular ML algorithms, i.e., Naive Bayes (NB) and Decision
 
 

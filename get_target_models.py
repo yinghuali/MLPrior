@@ -8,6 +8,10 @@ from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+
+
 
 # ap = argparse.ArgumentParser()
 # ap.add_argument("--path_data", type=str)
@@ -24,7 +28,7 @@ from sklearn.metrics import accuracy_score
 
 path_data = 'data/adult.csv'
 label_name = 'income'
-n_estimators = 30
+n_estimators = 5
 
 
 def main():
@@ -53,15 +57,22 @@ def main():
     # xgboost
     model = XGBClassifier(n_estimators=n_estimators)
     model.fit(x_train, y_train)
-    joblib.dump(model, 'models/target_models/{}_xgboost.model'.format(data_name))
+    joblib.dump(model, 'models/target_models/{}_xgb.model'.format(data_name))
+    y_pre = model.predict(x_test)
+    acc = accuracy_score(y_pre, y_test)
+    print('test', acc)
+    # NB
+    model = GaussianNB()
+    model.fit(x_train, y_train)
+    joblib.dump(model, 'models/target_models/{}_nb.model'.format(data_name))
     y_pre = model.predict(x_test)
     acc = accuracy_score(y_pre, y_test)
     print('test', acc)
 
-    # lightgbm
-    model = LGBMClassifier(n_estimators=n_estimators)
+    # NB
+    model = KNeighborsClassifier()
     model.fit(x_train, y_train)
-    joblib.dump(model, 'models/target_models/{}_lgb.model'.format(data_name))
+    joblib.dump(model, 'models/target_models/{}_knn.model'.format(data_name))
     y_pre = model.predict(x_test)
     acc = accuracy_score(y_pre, y_test)
     print('test', acc)

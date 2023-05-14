@@ -7,7 +7,7 @@ from get_rank_idx import *
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
-from lightgbm import LGBMClassifier
+from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 
@@ -15,7 +15,6 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--path_data", type=str)
 ap.add_argument("--model_name", type=str)
 ap.add_argument("--n_mutants", type=int)
-ap.add_argument("--ratio_mutation_node", type=float)
 ap.add_argument("--path_target_model", type=str)
 ap.add_argument("--mutation_cols_level", type=int)
 ap.add_argument("--n_mutants_data", type=int)
@@ -26,7 +25,6 @@ args = ap.parse_args()
 path_data = args.path_data
 model_name = args.model_name
 n_mutants = args.n_mutants
-mutation_level = args.ratio_mutation_node
 path_target_model = args.path_target_model
 mutation_cols_level = args.mutation_cols_level
 n_mutants_data = args.n_mutants_data
@@ -41,16 +39,28 @@ x, y = read_data(path_data, label_name)
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 
 
-def get_mutation_Decision_tree_model_x(n_mutants, ratio_mutation_node, path_target_model, x_test, x_train):
+def get_mutation_XGB_model_x(n_mutants, path_target_model, x_test, x_train):
     model_pre_test_np = []
     model_pre_train_np = []
     for _ in range(n_mutants):
         model = joblib.load(path_target_model)
-        nodes_list = list(range(model.tree_.node_count))
-        select_nodes_list = random.sample(nodes_list, int(len(nodes_list) * ratio_mutation_node))
-        for i in select_nodes_list:
-            if model.tree_.children_left[i] != model.tree_.children_right[i]:
-                model.tree_.threshold[i] = model.tree_.threshold[i] * random.uniform(0, 1)
+        pre_test_np = model.predict_proba(x_test)[:, 1]
+        pre_train_np = model.predict_proba(x_train)[:, 1]
+        threshold_value = random.uniform(0.3, 0.8)
+
+        y_test_pre = []
+        y_train_pre = []
+        for i in pre_test_np:
+            if i >= threshold_value:
+                y_test_pre.append(1)
+            else:
+                y_test_pre.append(0)
+        for i in pre_train_np:
+            if i >= threshold_value:
+                y_train_pre.append(1)
+            else:
+                y_train_pre.append(0)
+
         y_test_pre = model.predict(x_test)
         y_train_pre = model.predict(x_train)
 
@@ -65,7 +75,7 @@ target_model = joblib.load(path_target_model)
 target_test_pre = target_model.predict(x_test)
 target_train_pre = target_model.predict(x_train)
 
-model_pre_train_np, model_pre_test_np = get_mutation_Decision_tree_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train)
+model_pre_train_np, model_pre_test_np = get_mutation_XGB_model_x(n_mutants, path_target_model, x_test, x_train)
 
 
 # Feature2: mutation model feature
@@ -123,8 +133,8 @@ def main():
     lr_res = ['lr'] + get_model_apfd(LogisticRegression, dt=False)
     dt_res = ['dt'] + get_model_apfd(DecisionTreeClassifier, dt=True)
     xgb_res = ['xgb'] + get_model_apfd(XGBClassifier, dt=False)
-    lgb_res = ['lgb'] + get_model_apfd(LGBMClassifier, dt=False)
-    df_model = pd.DataFrame([lr_res, dt_res, xgb_res, lgb_res], columns=['Approach', 'apfd'])
+    nb_res = ['lgb'] + get_model_apfd(GaussianNB, dt=False)
+    df_model = pd.DataFrame([lr_res, dt_res, xgb_res, nb_res], columns=['Approach', 'apfd'])
     df_model.to_csv(sava_path_subject_model_name, index=False)
     res_list = get_compare_method_apfd(target_model, x_test)
     Approach_list = ['random_apfd', 'deepGini_apfd', 'vanillasoftmax_apfd', 'pcs_apfd', 'entropy_apfd']

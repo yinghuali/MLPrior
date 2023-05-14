@@ -15,7 +15,6 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--path_data", type=str)
 ap.add_argument("--model_name", type=str)
 ap.add_argument("--n_mutants", type=int)
-ap.add_argument("--mutation_level", type=int)
 ap.add_argument("--path_target_model", type=str)
 ap.add_argument("--mutation_cols_level", type=int)
 ap.add_argument("--n_mutants_data", type=int)
@@ -26,20 +25,10 @@ args = ap.parse_args()
 path_data = args.path_data
 model_name = args.model_name
 n_mutants = args.n_mutants
-mutation_level = args.mutation_level
 path_target_model = args.path_target_model
 mutation_cols_level = args.mutation_cols_level
 n_mutants_data = args.n_mutants_data
 label_name = args.label_name
-
-# path_data = 'data/adult.csv'
-# model_name = 'lr'
-# n_mutants = 20                # number of mutant models
-# mutation_level = 10           # range of mutation models
-# path_target_model = 'models/target_models/adult_lr.model'
-# mutation_cols_level = 5       # range of mutation cols
-# n_mutants_data = 20           # number of mutation data
-# label_name = 'income'
 
 mutation_cols_level = list(range(1, mutation_cols_level))
 data_name = path_data.split('/')[-1].split('.')[0]
@@ -50,22 +39,33 @@ x, y = read_data(path_data, label_name)
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 
 
-def get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train):
+def get_mutation_NB_model_x(n_mutants, path_target_model, x_test, x_train):
     model_pre_test_np = []
     model_pre_train_np = []
     for _ in range(n_mutants):
         model = joblib.load(path_target_model)
-        for i in range(len(model.coef_[0])):
-            ratio = random.randint(2, mutation_level)
-            model.coef_[0][i] = model.coef_[0][i]*ratio
+        pre_test_np = model.predict_proba(x_test)[:, 1]
+        pre_train_np = model.predict_proba(x_train)[:, 1]
+        threshold_value = random.uniform(0.3, 0.8)
+
+        y_test_pre = []
+        y_train_pre = []
+        for i in pre_test_np:
+            if i >= threshold_value:
+                y_test_pre.append(1)
+            else:
+                y_test_pre.append(0)
+        for i in pre_train_np:
+            if i >= threshold_value:
+                y_train_pre.append(1)
+            else:
+                y_train_pre.append(0)
+
         y_test_pre = model.predict(x_test)
         y_train_pre = model.predict(x_train)
 
         model_pre_test_np.append(y_test_pre)
         model_pre_train_np.append(y_train_pre)
-
-    model_pre_test_np = np.array(model_pre_test_np)
-    model_pre_train_np = np.array(model_pre_train_np)
 
     return model_pre_train_np, model_pre_test_np
 
@@ -75,7 +75,8 @@ target_model = joblib.load(path_target_model)
 target_test_pre = target_model.predict(x_test)
 target_train_pre = target_model.predict(x_train)
 
-model_pre_train_np, model_pre_test_np = get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train)
+model_pre_train_np, model_pre_test_np = get_mutation_NB_model_x(n_mutants, path_target_model, x_test, x_train)
+
 
 # Feature2: mutation model feature
 mutation_model_feature_test_vec = get_mutation_feature(model_pre_test_np, target_test_pre)
@@ -88,7 +89,6 @@ mutation_x_np = get_mutation_data(x, mutation_cols_level, n_mutants_data)
 mutation_x_pre_np = np.array([target_model.predict(i) for i in mutation_x_np])
 mutation_x_feature = get_mutation_feature(mutation_x_pre_np, target_pre)
 mutation_x_train_feature, mutation_x_test_feature, mutation_y_train, mutation_y_test = train_test_split(mutation_x_feature, y, test_size=0.3, random_state=0)
-
 
 fusion_3_feature_train = np.hstack((x_train, mutation_model_feature_train_vec, mutation_x_train_feature))
 fusion_3_feature_test = np.hstack((x_test, mutation_model_feature_test_vec, mutation_x_test_feature))

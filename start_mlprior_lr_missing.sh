@@ -4,8 +4,8 @@
 #SBATCH --time=1-23:00:00
 #SBATCH --mail-type=end,fail
 #SBATCH --mail-user=yinghua.li@uni.lu
-#SBATCH -p bigmem
-#SBATCH --mem 300G
+#SBATCH -p batch
+#SBATCH --mem 10G
 
 python mlprior_lr.py --path_data 'data/missing/adult_1_0.csv' --model_name 'lr' --n_mutants 20  --mutation_level 10 --path_target_model 'models/target_models/adult_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'
 python mlprior_lr.py --path_data 'data/missing/adult_1_1.csv' --model_name 'lr' --n_mutants 20  --mutation_level 10 --path_target_model 'models/target_models/adult_lr.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'

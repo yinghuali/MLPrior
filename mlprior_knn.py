@@ -50,14 +50,13 @@ x, y = read_data(path_data, label_name)
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 
 
-def get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train):
+def get_mutation_KNN_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train):
+    """mutation_level > 10"""
     model_pre_test_np = []
     model_pre_train_np = []
     for _ in range(n_mutants):
         model = joblib.load(path_target_model)
-        for i in range(len(model.coef_[0])):
-            ratio = random.randint(2, mutation_level)
-            model.coef_[0][i] = model.coef_[0][i]*ratio
+        model.n_neighbors = random.randint(10, mutation_level)
         y_test_pre = model.predict(x_test)
         y_train_pre = model.predict(x_train)
 
@@ -75,7 +74,7 @@ target_model = joblib.load(path_target_model)
 target_test_pre = target_model.predict(x_test)
 target_train_pre = target_model.predict(x_train)
 
-model_pre_train_np, model_pre_test_np = get_mutation_LR_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train)
+model_pre_train_np, model_pre_test_np = get_mutation_KNN_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train)
 
 # Feature2: mutation model feature
 mutation_model_feature_test_vec = get_mutation_feature(model_pre_test_np, target_test_pre)
@@ -134,7 +133,8 @@ def main():
     dt_res = ['dt'] + get_model_apfd(DecisionTreeClassifier, dt=True)
     xgb_res = ['xgb'] + get_model_apfd(XGBClassifier, dt=False)
     nb_res = ['nb'] + get_model_apfd(GaussianNB, dt=False)
-    df_model = pd.DataFrame([lr_res, dt_res, xgb_res, nb_res], columns=['Approach', 'apfd'])
+    knn_res = ['knn'] + get_model_apfd(GaussianNB, dt=False)
+    df_model = pd.DataFrame([lr_res, dt_res, xgb_res, nb_res, knn_res], columns=['Approach', 'apfd'])
     df_model.to_csv(sava_path_subject_model_name, index=False)
     res_list = get_compare_method_apfd(target_model, x_test)
     Approach_list = ['random_apfd', 'deepGini_apfd', 'vanillasoftmax_apfd', 'pcs_apfd', 'entropy_apfd']
@@ -146,7 +146,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
 
 
