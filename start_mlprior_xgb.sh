@@ -8,10 +8,6 @@
 #SBATCH --mem 10G
 
 python mlprior_xgb.py --path_data 'data/adult.csv' --model_name 'xgb' --n_mutants 100 --path_target_model 'models/target_models/adult_xgb.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'
-python mlprior_xgb.py --path_data 'data/heart.csv' --model_name 'xgb' --n_mutants 100 --path_target_model 'models/target_models/heart_xgb.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'label'
 python mlprior_xgb.py --path_data 'data/bank.csv' --model_name 'xgb' --n_mutants 100 --path_target_model 'models/target_models/bank_xgb.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'y'
 python mlprior_xgb.py --path_data 'data/stroke.csv' --model_name 'xgb' --n_mutants 100 --path_target_model 'models/target_models/stroke_xgb.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'stroke'
-python mlprior_xgb.py --path_data 'data/fairness_age.csv' --model_name 'xgb' --n_mutants 100 --path_target_model 'models/target_models/bank_xgb.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'y'
-python mlprior_xgb.py --path_data 'data/fairness_gender.csv' --model_name 'xgb' --n_mutants 100 --path_target_model 'models/target_models/adult_xgb.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'
-python mlprior_xgb.py --path_data 'data/fairness_race.csv' --model_name 'xgb' --n_mutants 100 --path_target_model 'models/target_models/adult_xgb.model' --mutation_cols_level 5 --n_mutants_data 20 --label_name 'income'
 

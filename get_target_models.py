@@ -12,23 +12,25 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 
 
+ap = argparse.ArgumentParser()
+ap.add_argument("--path_data", type=str)
+ap.add_argument("--label_name", type=str)
+ap.add_argument("--n_estimators", type=int)
+args = ap.parse_args()
 
-# ap = argparse.ArgumentParser()
-# ap.add_argument("--path_data", type=str)
-# ap.add_argument("--label_name", type=str)
-# ap.add_argument("--n_estimators", type=int)
-# args = ap.parse_args()
+# python get_target_models.py --path_data 'data/adult.csv' --label_name 'income'
+# python get_target_models.py --path_data 'data/bank.csv' --label_name 'y'
+# python get_target_models.py --path_data 'data/stroke.csv' --label_name 'stroke'
 
-# python get_target_models.py --path_data 'data/adult.csv' --label_name 'income' --n_estimators 3
-# python get_target_models.py --path_data 'data/wine.csv' --label_name 'quality' --n_estimators 10
 
-# path_data = args.path_data
-# label_name = args.label_name
-# n_estimators = args.n_estimators
-
-path_data = 'data/adult.csv'
-label_name = 'income'
+path_data = args.path_data
+label_name = args.label_name
 n_estimators = 5
+
+
+# path_data = 'data/heart.csv'
+# label_name = 'label'
+# n_estimators = 5
 
 
 def main():

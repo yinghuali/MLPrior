@@ -31,7 +31,7 @@ n_mutants_data = args.n_mutants_data
 label_name = args.label_name
 
 mutation_cols_level = list(range(1, mutation_cols_level))
-data_name = path_data.split('/')[-1].split('.')[0]
+data_name = path_data.split('/')[-2]+'_'+path_data.split('/')[-1].split('.')[0]
 sava_path_subject_model_name = 'result/'+model_name+'_'+data_name+'_model.csv'
 sava_path_subject_compare_name = 'result/'+model_name+'_'+data_name+'_compare.csv'
 
@@ -133,8 +133,9 @@ def main():
     lr_res = ['lr'] + get_model_apfd(LogisticRegression, dt=False)
     dt_res = ['dt'] + get_model_apfd(DecisionTreeClassifier, dt=True)
     xgb_res = ['xgb'] + get_model_apfd(XGBClassifier, dt=False)
-    nb_res = ['lgb'] + get_model_apfd(GaussianNB, dt=False)
-    df_model = pd.DataFrame([lr_res, dt_res, xgb_res, nb_res], columns=['Approach', 'apfd'])
+    nb_res = ['nb'] + get_model_apfd(GaussianNB, dt=False)
+    knn_res = ['knn'] + get_model_apfd(GaussianNB, dt=False)
+    df_model = pd.DataFrame([lr_res, dt_res, xgb_res, nb_res, knn_res], columns=['Approach', 'apfd'])
     df_model.to_csv(sava_path_subject_model_name, index=False)
     res_list = get_compare_method_apfd(target_model, x_test)
     Approach_list = ['random_apfd', 'deepGini_apfd', 'vanillasoftmax_apfd', 'pcs_apfd', 'entropy_apfd']
@@ -142,6 +143,7 @@ def main():
     df_compare['Approach'] = Approach_list
     df_compare['apfd'] = res_list
     df_compare.to_csv(sava_path_subject_compare_name, index=False)
+
 
 
 if __name__ == '__main__':

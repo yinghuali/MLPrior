@@ -42,7 +42,7 @@ label_name = args.label_name
 # label_name = 'income'
 
 mutation_cols_level = list(range(1, mutation_cols_level))
-data_name = path_data.split('/')[-1].split('.')[0]
+data_name = path_data.split('/')[-2]+'_'+path_data.split('/')[-1].split('.')[0]
 sava_path_subject_model_name = 'result/'+model_name+'_'+data_name+'_model.csv'
 sava_path_subject_compare_name = 'result/'+model_name+'_'+data_name+'_compare.csv'
 
@@ -142,6 +142,7 @@ def main():
     df_compare['Approach'] = Approach_list
     df_compare['apfd'] = res_list
     df_compare.to_csv(sava_path_subject_compare_name, index=False)
+
 
 
 if __name__ == '__main__':
