@@ -134,7 +134,6 @@ dmypy.json
 *__pycache__/
 logs/*.log
 
-models/*.h5
 *.h5
 
 README.txt
@@ -144,6 +143,6 @@ data/noise/*
 data/missing/*
 MLPrior.pptx
 README.txt
-models/*
+
 
 
