@@ -1,0 +1,6 @@
+Approach,apfd
+random_apfd,0.5076011209219383
+deepGini_apfd,0.6734831354718864
+vanillasoftmax_apfd,0.6734831354718864
+pcs_apfd,0.6734861098154691
+entropy_apfd,0.6734857380225213
