@@ -71,7 +71,7 @@ def main():
     acc = accuracy_score(y_pre, y_test)
     print('test', acc)
 
-    # NB
+    # KNN
     model = KNeighborsClassifier()
     model.fit(x_train, y_train)
     joblib.dump(model, 'models/target_models/{}_knn.model'.format(data_name))

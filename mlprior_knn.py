@@ -10,6 +10,7 @@ from xgboost import XGBClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--path_data", type=str)
@@ -133,7 +134,7 @@ def main():
     dt_res = ['dt'] + get_model_apfd(DecisionTreeClassifier, dt=True)
     xgb_res = ['xgb'] + get_model_apfd(XGBClassifier, dt=False)
     nb_res = ['nb'] + get_model_apfd(GaussianNB, dt=False)
-    knn_res = ['knn'] + get_model_apfd(GaussianNB, dt=False)
+    knn_res = ['knn'] + get_model_apfd(KNeighborsClassifier, dt=False)
     df_model = pd.DataFrame([lr_res, dt_res, xgb_res, nb_res, knn_res], columns=['Approach', 'apfd'])
     df_model.to_csv(sava_path_subject_model_name, index=False)
     res_list = get_compare_method_apfd(target_model, x_test)
