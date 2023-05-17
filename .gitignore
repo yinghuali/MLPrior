@@ -146,5 +146,8 @@ README.txt
 *.pkl
 
 tables/*
+importance/*
+*importance*
+*pfd*
 
 
