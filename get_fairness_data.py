@@ -1,6 +1,7 @@
 import pandas as pd
 import random
 
+
 def get_adult_gender_exchange(path_csv, col_name, path_save):
     df = pd.read_csv(path_csv)
     df_Male = df[df[col_name] == 'Male']
@@ -21,8 +22,28 @@ def get_adult_gender_exchange(path_csv, col_name, path_save):
     df.to_csv(path_save, index=False)
 
 
+def get_stroke_sex_exchange(path_csv, col_name, path_save):
+    df = pd.read_csv(path_csv)
+    df_0 = df[df[col_name] == 0.0]
+    df_1 = df[df[col_name] == 1.0]
+
+    index_0 = list(df_0.index)
+    select_0_index = random.sample(index_0, int(len(index_0) / 2))
+
+    index_1 = list(df_1.index)
+    select_1_index = random.sample(index_1, int(len(index_1) / 2))
+
+    for i in select_0_index:
+        df.loc[i, col_name] = 1.0
+
+    for i in select_1_index:
+        df.loc[i, col_name] = 0.0
+
+    df.to_csv(path_save, index=False)
+
+
 if __name__ == '__main__':
-    get_adult_gender_exchange( './data/adult.csv', 'gender', './data/gender_exchange_adult.csv')
-
-
+    # get_adult_gender_exchange('./data/adult.csv', 'gender', './data/gender_exchange_adult.csv')
+    # get_stroke_sex_exchange('./data/stroke.csv', 'sex', './data/gender_exchange_stroke.csv')
+    pass
 
