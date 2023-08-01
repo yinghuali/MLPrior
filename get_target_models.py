@@ -26,11 +26,6 @@ label_name = args.label_name
 n_estimators = 5
 
 
-# path_data = 'data/heart.csv'
-# label_name = 'label'
-# n_estimators = 5
-
-
 def main():
 
     data_name = path_data.split('/')[-1].split('.')[0]
@@ -44,7 +39,6 @@ def main():
     y_pre = model.predict(x_test)
     acc = accuracy_score(y_pre, y_test)
     print('test', acc)
-
 
     # tree
     model = DecisionTreeClassifier(min_samples_leaf=10)
@@ -61,6 +55,7 @@ def main():
     y_pre = model.predict(x_test)
     acc = accuracy_score(y_pre, y_test)
     print('test', acc)
+
     # NB
     model = GaussianNB()
     model.fit(x_train, y_train)
