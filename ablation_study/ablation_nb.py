@@ -1,19 +1,21 @@
 import joblib
-import numpy as np
 import pandas as pd
+import numpy as np
 import argparse
 from utils import *
 from get_rank_idx import *
+from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
+from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
-
+from sklearn.neighbors import KNeighborsClassifier
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--path_data", type=str)
 ap.add_argument("--model_name", type=str)
 ap.add_argument("--n_mutants", type=int)
-ap.add_argument("--ratio_mutation_node", type=float)
 ap.add_argument("--path_target_model", type=str)
 ap.add_argument("--mutation_cols_level", type=int)
 ap.add_argument("--n_mutants_data", type=int)
@@ -24,7 +26,6 @@ args = ap.parse_args()
 path_data = args.path_data
 model_name = args.model_name
 n_mutants = args.n_mutants
-mutation_level = args.ratio_mutation_node
 path_target_model = args.path_target_model
 mutation_cols_level = args.mutation_cols_level
 n_mutants_data = args.n_mutants_data
@@ -39,16 +40,28 @@ x, y = read_data(path_data, label_name)
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
 
 
-def get_mutation_Decision_tree_model_x(n_mutants, ratio_mutation_node, path_target_model, x_test, x_train):
+def get_mutation_NB_model_x(n_mutants, path_target_model, x_test, x_train):
     model_pre_test_np = []
     model_pre_train_np = []
     for _ in range(n_mutants):
         model = joblib.load(path_target_model)
-        nodes_list = list(range(model.tree_.node_count))
-        select_nodes_list = random.sample(nodes_list, int(len(nodes_list) * ratio_mutation_node))
-        for i in select_nodes_list:
-            if model.tree_.children_left[i] != model.tree_.children_right[i]:
-                model.tree_.threshold[i] = model.tree_.threshold[i] * random.uniform(0, 1)
+        pre_test_np = model.predict_proba(x_test)[:, 1]
+        pre_train_np = model.predict_proba(x_train)[:, 1]
+        threshold_value = random.uniform(0.3, 0.8)
+
+        y_test_pre = []
+        y_train_pre = []
+        for i in pre_test_np:
+            if i >= threshold_value:
+                y_test_pre.append(1)
+            else:
+                y_test_pre.append(0)
+        for i in pre_train_np:
+            if i >= threshold_value:
+                y_train_pre.append(1)
+            else:
+                y_train_pre.append(0)
+
         y_test_pre = model.predict(x_test)
         y_train_pre = model.predict(x_train)
 
@@ -63,11 +76,13 @@ target_model = joblib.load(path_target_model)
 target_test_pre = target_model.predict(x_test)
 target_train_pre = target_model.predict(x_train)
 
-model_pre_train_np, model_pre_test_np = get_mutation_Decision_tree_model_x(n_mutants, mutation_level, path_target_model, x_test, x_train)
+model_pre_train_np, model_pre_test_np = get_mutation_NB_model_x(n_mutants, path_target_model, x_test, x_train)
+
 
 # Feature2: mutation model feature
 mutation_model_feature_test_vec = get_mutation_feature(model_pre_test_np, target_test_pre)
 mutation_model_feature_train_vec = get_mutation_feature(model_pre_train_np, target_train_pre)
+
 
 # Feature3: mutation feature
 target_pre = target_model.predict(x)
@@ -110,4 +125,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
 
