@@ -33,15 +33,6 @@ mutation_cols_level = args.mutation_cols_level
 n_mutants_data = args.n_mutants_data
 label_name = args.label_name
 
-# path_data = 'data/adult.csv'
-# model_name = 'lr'
-# n_mutants = 20                # number of mutant models
-# mutation_level = 10           # range of mutation models
-# path_target_model = 'models/target_models/adult_lr.model'
-# mutation_cols_level = 5       # range of mutation cols
-# n_mutants_data = 20           # number of mutation data
-# label_name = 'income'
-
 mutation_cols_level = list(range(1, mutation_cols_level))
 data_name = path_data.split('/')[-2]+'_'+path_data.split('/')[-1].split('.')[0]
 sava_path_subject_model_name = 'result/'+model_name+'_'+data_name+'_model.csv'
