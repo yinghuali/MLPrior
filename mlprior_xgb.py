@@ -146,10 +146,5 @@ def main():
     df_compare.to_csv(sava_path_subject_compare_name, index=False)
 
 
-
 if __name__ == '__main__':
     main()
-
-
-
-
