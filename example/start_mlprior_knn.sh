@@ -45,3 +45,4 @@ python mlprior_knn.py --path_data 'data/noise/stroke_mixture_noise_7.csv' --mode
 python mlprior_knn.py --path_data 'data/noise/stroke_mixture_noise_8.csv' --model_name 'knn' --n_mutants 5  --mutation_level 20 --path_target_model 'models/target_models/stroke_knn.model' --mutation_cols_level 5 --n_mutants_data 5 --label_name 'stroke'
 python mlprior_knn.py --path_data 'data/noise/stroke_mixture_noise_9.csv' --model_name 'knn' --n_mutants 5  --mutation_level 20 --path_target_model 'models/target_models/stroke_knn.model' --mutation_cols_level 5 --n_mutants_data 5 --label_name 'stroke'
 
+
