@@ -45,13 +45,9 @@ def get_mixture_noise_data_dh(path, n_data, ratio, label_col_name, save_path):
 
 
 if __name__ == '__main__':
-    # get_mixture_noise_data('./data/adult.csv', 10, 0.3, 'income', './data/noise/adult_mixture_noise')
-    # get_mixture_noise_data('./data/bank.csv', 10, 0.3, 'y', './data/noise/bank_mixture_noise')
-    # get_mixture_noise_data('./data/stroke.csv', 10, 0.3, 'stroke', './data/noise/stroke_mixture_noise')
+    get_mixture_noise_data('./data/adult.csv', 10, 0.3, 'income', './data/noise/adult_mixture_noise')
+    get_mixture_noise_data('./data/bank.csv', 10, 0.3, 'y', './data/noise/bank_mixture_noise')
+    get_mixture_noise_data('./data/stroke.csv', 10, 0.3, 'stroke', './data/noise/stroke_mixture_noise')
 
     get_mixture_noise_data_dh('./data/diabetes.csv', 10, 0.3, 'Diabetes', './data/noise/diabetes_mixture_noise')
     get_mixture_noise_data_dh('./data/heartbeat.csv', 10, 0.3, 'y', './data/noise/heartbeat_mixture_noise')
-
-
-
-
