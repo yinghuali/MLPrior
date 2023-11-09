@@ -155,6 +155,5 @@ ablation_study/result/*
 impact_mlprior/result/*
 ablation/*
 test.py
-get_target_model.py
 binary_result/*
 
