@@ -54,9 +54,33 @@ def get_age_exchange(path_csv, col_name, path_save):
     df.to_csv(path_save, index=False)
 
 
+def get_age_diabetes(path_csv, col_name, path_save):
+    df = pd.read_csv(path_csv)
+    for i in range(len(df)):
+        if 2 <= df.loc[i, col_name] <= 7:
+            df.loc[i, col_name] = random.randint(8, 13)
+        elif 8 <= df.loc[i, col_name] <= 13:
+            df.loc[i, col_name] = random.randint(2, 7)
+        else:
+            pass
+    df.to_csv(path_save, index=False)
+
+
+def get_sex_diabetes(path_csv, col_name, path_save):
+    df = pd.read_csv(path_csv)
+    for i in range(len(df)):
+            df.loc[i, col_name] = random.randint(0, 1)
+    df.to_csv(path_save, index=False)
+
+
 if __name__ == '__main__':
     get_adult_gender_exchange('./data/adult.csv', 'gender', './data/gender_exchange_adult.csv')
     get_stroke_sex_exchange('./data/stroke.csv', 'sex', './data/gender_exchange_stroke.csv')
     get_age_exchange('./data/adult.csv', 'age', './data/age_exchange_adult.csv')
     get_age_exchange('./data/bank.csv', 'age', './data/age_exchange_bank.csv')
+    get_age_diabetes('./data/diabetes.csv', 'Age', './data/age_exchange_diabetes.csv')
+    get_sex_diabetes('./data/diabetes.csv', 'Sex', './data/gender_exchange_diabetes.csv')
+
+
+
 
