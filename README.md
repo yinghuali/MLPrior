@@ -1,5 +1,6 @@
 # Source Code of MLPrior
 ## Main Requirements
-    Scikit-learn 0.24.2
-    XGBoost 1.4.2
+    python 3.7
+    Scikit-learn 1.0
+    XGBoost 1.5.0
 
