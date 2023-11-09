@@ -69,7 +69,10 @@ def get_age_diabetes(path_csv, col_name, path_save):
 def get_sex_diabetes(path_csv, col_name, path_save):
     df = pd.read_csv(path_csv)
     for i in range(len(df)):
-            df.loc[i, col_name] = random.randint(0, 1)
+            if df.loc[i, col_name] == 0:
+                df.loc[i, col_name] = 1
+            else:
+                df.loc[i, col_name] = 0
     df.to_csv(path_save, index=False)
 
 
