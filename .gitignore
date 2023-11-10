@@ -156,5 +156,5 @@ impact_mlprior/result/*
 ablation/*
 test.py
 binary_result/*
-multi_clean_result/
-
+multi_clean_result/*
+multi_noise_fairness_result/*
