@@ -26,7 +26,7 @@ MLPrior is our proposed test prioritization approach specifically for classical 
     run_MLPrior.sh: run MLPrior to get all results.
 
 ## How to run MLPrior
-### Step1: Result directory preparation:  
+### Step1: 'result' directory preparation:  
 ```sh mkdirFile.sh```
 
 ### Step2: Run MLPrior
