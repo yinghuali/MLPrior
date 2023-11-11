@@ -30,5 +30,5 @@ MLPrior is our proposed test prioritization approach specifically for classical 
 ```sh mkdirFile.sh```
 
 ### Step2: Run MLPrior
+```sh run_MLPrior.sh```  
 All results will be saved in the 'result' directory.  
-```sh run_MLPrior.sh```
