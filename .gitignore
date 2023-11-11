@@ -153,6 +153,7 @@ result/*
 ResultsProcessing.ipynb
 ablation_study/result/*
 impact_mlprior/result/*
+impact_mlprior/binary_result/*
 ablation/*
 test.py
 binary_result/*
