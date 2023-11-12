@@ -23,6 +23,8 @@ MLPrior is our proposed test prioritization approach specifically for classical 
     mlprior_xgb.py: script of MLPrior for XGBoost model.
     utils.py: tool script.
     ----------------------
+    sh mkdirFile.sh: result' directory preparation.
+    sh get_ML_models.sh: get evaluated ML models.
     run_MLPrior.sh: run MLPrior to get all results.
 
 ## How to run MLPrior
