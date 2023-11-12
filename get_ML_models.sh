@@ -1,0 +1,5 @@
+ python get_target_model.py --path_data 'data/adult.csv' --label_name 'income'
+ python get_target_model.py --path_data 'data/bank.csv' --label_name 'y'
+ python get_target_model.py --path_data 'data/stroke.csv' --label_name 'stroke'
+ python get_target_model.py --path_data 'data/diabetes.csv' --label_name 'Diabetes'
+ python get_target_model.py --path_data 'data/heartbeat.csv' --label_name 'y'

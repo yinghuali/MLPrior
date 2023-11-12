@@ -29,6 +29,9 @@ MLPrior is our proposed test prioritization approach specifically for classical 
 ### Step1: 'result' directory preparation:  
 ```sh mkdirFile.sh```
 
-### Step2: Run MLPrior
+### Step2: Get evaluated ML models.
+```sh get_ML_models.sh```
+
+### Step3: Run MLPrior
 ```sh run_MLPrior.sh```  
 All results will be saved in the 'result' directory.  
