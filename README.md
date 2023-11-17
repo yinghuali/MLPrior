@@ -7,10 +7,10 @@ MLPrior is our proposed test prioritization approach specifically for classical 
     XGBoost 1.5.0
 
 ##  Repository catalogue
-    data: dataset.
-    impact_mlprior: parameter analysis.
-    models: the evaluated ML models.
-    shell: scripts to obtain the experimental results of the paper.
+    data: dataset for evaluating MLPrior.
+    impact_mlprior: parameter analysis for MLPrior.
+    models: classical ML models for evaluating MLPrior.
+    shell: all scripts used to run MLPrior in the experiments.
     ----------------------
     get_fairness_data.py: script for getting fairness data.
     get_mixture_data.py: script for getting mixed noisy data.
