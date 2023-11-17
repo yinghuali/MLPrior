@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10150392.svg)](https://doi.org/10.5281/zenodo.10150392)
 # MLPrior
 MLPrior is our proposed test prioritization approach specifically for classical machine learning (ML) classifiers.
 
