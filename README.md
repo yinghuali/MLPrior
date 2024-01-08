@@ -38,3 +38,16 @@ MLPrior is our proposed test prioritization approach specifically for classical 
 ### Step3: Run MLPrior
 ```sh run_MLPrior.sh```  
 All results will be saved in the 'result' directory.  
+
+## Reference
+If our project is helpful to you, please consider citing our paper.
+```
+@article{mlprior,
+title={Test input prioritization for Machine Learning Classifiers},
+author={Dang, Xueqi and Li, Yinghua and Papadakis, Mike and Klein, Jacques and Bissyand{\'e}, Tegawend{\'e} F and Le Traon, Yves},
+journal={IEEE Transactions on Software Engineering},
+year={2024},
+doi={10.1109/TSE.2024.3350019},
+publisher={IEEE}
+}
+```
